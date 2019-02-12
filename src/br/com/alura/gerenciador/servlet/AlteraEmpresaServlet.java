@@ -16,17 +16,15 @@ public class AlteraEmpresaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		System.out.println("Alterando empresa");
 		
 		String nomeEmpresa = request.getParameter("nome");
 		String paramDataEmpresa = request.getParameter("data");
 		String paramId = request.getParameter("id");
-		
 		Integer id = Integer.valueOf(paramId);
 		
-		
 		Date dataAbertura = null;
-		
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			dataAbertura = sdf.parse(paramDataEmpresa);
@@ -34,13 +32,15 @@ public class AlteraEmpresaServlet extends HttpServlet {
 			throw new ServletException(e);
 		}
 		
-		Banco banco = new Banco();
-		Empresa empresa = banco.buscaEmpresaPeloId(id);
-		empresa.setDataAbertura(dataAbertura);
-		empresa.setNome(nomeEmpresa);
-		empresa.setId(id);
+		System.out.println(id);
 		
-		response.sendRedirect("listaEmpresas");		
+		Banco banco = new Banco();
+		Empresa empresa = banco.buscaEmpresaPelaId(id);
+		empresa.setNome(nomeEmpresa);
+		empresa.setDataAbertura(dataAbertura);
+		
+		response.sendRedirect("listaEmpresas");
+	
 	}
 
 }
